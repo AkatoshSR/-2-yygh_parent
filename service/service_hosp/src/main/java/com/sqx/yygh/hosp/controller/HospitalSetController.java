@@ -6,7 +6,9 @@ import com.mysql.cj.util.StringUtils;
 import com.sqx.yygh.common.result.Result;
 import com.sqx.yygh.common.utils.MD5;
 import com.sqx.yygh.hosp.service.HospitalSetService;
+import com.sqx.yygh.hosp.service.UserService;
 import com.sqx.yygh.model.hosp.HospitalSet;
+import com.sqx.yygh.model.hosp.User;
 import com.sqx.yygh.vo.hosp.HospitalQueryVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -19,11 +21,15 @@ import java.util.Random;
 @Api(tags = "医院设置管理")
 @RestController
 @RequestMapping("/admin/hosp/hospitalSet")
+@CrossOrigin
 public class HospitalSetController {
 
     // 注入service
     @Autowired
     private HospitalSetService hospitalSetService;
+
+    @Autowired
+    private UserService userService;
 
     // 1.查询医院设置表所有信息
     @ApiOperation(value = "获取所有医院设置")
@@ -130,13 +136,29 @@ public class HospitalSetController {
 
     // 9.发送签名秘钥
     @PutMapping("senKey/{id}/{status}")
-    public Result localHospitalSet(@PathVariable Long id){
+    public Result localHospitalSet(@PathVariable Long id) {
         HospitalSet hospitalSet = hospitalSetService.getById(id);
         String signKey = hospitalSet.getSignKey();
         String hoscode = hospitalSet.getHoscode();
 
         // TODO 发送短信
         return Result.ok();
+    }
+
+    //10. 登录
+    @PostMapping("login")
+    @ApiOperation(value = "登录")
+    public Result login(@RequestBody User user){
+
+        QueryWrapper<User> wrapper = new QueryWrapper<>();
+        wrapper.eq("username",user.getUsername());
+
+        User result = userService.getOne(wrapper);
+        if (user.getPassword().equals(result.getPassword())){
+            return Result.ok();
+        }
+
+        return Result.fail();
     }
 
 

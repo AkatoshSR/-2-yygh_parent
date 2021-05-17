@@ -1,4 +1,4 @@
-package com.sqx.yygh.hosp.config;
+package com.sqx.yygh.cmn.config;
 
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
@@ -8,8 +8,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@MapperScan("com.sqx.yygh.hosp.mapper")
-public class HospitalConfig {
+@MapperScan("com.sqx.yygh.cmn.mapper")
+public class CmnConfig {
     // 分页插件
     @Bean
     public MybatisPlusInterceptor mybatisPlusInterceptor(){

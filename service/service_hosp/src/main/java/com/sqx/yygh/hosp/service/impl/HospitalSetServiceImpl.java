@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.sqx.yygh.hosp.mapper.HospitalSetMapper;
 import com.sqx.yygh.hosp.service.HospitalSetService;
 import com.sqx.yygh.model.hosp.HospitalSet;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
